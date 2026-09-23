@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>고래잇 X 이마트 설문조사 모음</title>
+  <style>
+    /* Google Fonts 로드 */
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.15);
+      --card-hover-bg: rgba(255, 255, 255, 0.16);
+      --text-color: #ffffff;
+      --text-sub: #b0c4de;
+      --accent-color: #00d2ff;
+      --shadow-color: rgba(0, 0, 0, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    /* 홈 버튼 및 상단 네비게이션 영역 */
+    .top-nav {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 30px;
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .home-btn:hover {
+      background: var(--card-hover-bg);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-2px);
+      color: var(--accent-color);
+    }
+
+    .home-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+      max-width: 700px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+      background: linear-gradient(45deg, #ffffff, var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    /* 카드 그리드 레이아웃 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    /* 카드 스타일 (글래스모피즘 효과) */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      text-decoration: none;
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                  box-shadow 0.3s ease, 
+                  background-color 0.3s ease,
+                  border-color 0.3s ease;
+      box-shadow: 0 8px 32px 0 var(--shadow-color);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 마우스 호버 효과 */
+    .card:hover {
+      transform: translateY(-8px);
+      background: var(--card-hover-bg);
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.35);
+    }
+
+    .card-tag {
+      align-self: flex-start;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: rgba(0, 210, 255, 0.15);
+      color: var(--accent-color);
+      border-radius: 20px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(0, 210, 255, 0.3);
+      letter-spacing: 0.5px;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 24px;
+      word-break: keep-all;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--accent-color);
+    }
+
+    .card-footer .arrow {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-footer .arrow {
+      transform: translateX(6px);
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 600px) {
+      body {
+        padding: 24px 16px;
+      }
+      header h1 {
+        font-size: 1.75rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 홈 버튼 영역 -->
+  <nav class="top-nav">
+    <a href="../index.html" class="home-btn">
+      <svg viewBox="0 0 24 24">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+      </svg>
+      <span>홈으로</span>
+    </a>
+  </nav>
+
+  <header>
+    <h1>고래잇 X 이마트 설문조사</h1>
+    <p>아래 카드 항목을 클릭하시면 해당 설문조사 페이지(새 창)로 이동합니다.</p>
+  </header>
+
+  <main class="card-grid">
+
+    <!-- 카드 1 -->
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSf9KAD8srZMhxJDkiP037oiS7t_nAU0NWQL1qzy55FypQDHBA/viewform" target="_blank" rel="noopener noreferrer" class="card">
+      <div>
+        <span class="card-tag">만족도 조사</span>
+        <h2 class="card-title">[고래잇 X 이마트 보물찾기] 참여 고객 만족도 및 피드백 설문조사</h2>
+      </div>
+      <div class="card-footer">
+        <span>설문 참여하기</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 카드 2 -->
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScQCR75vg1XItA9z5Cjn8rR_dAAVuFAJNq6Y-rkOYdYnRZfDg/viewform" target="_blank" rel="noopener noreferrer" class="card">
+      <div>
+        <span class="card-tag">사전 수요조사</span>
+        <h2 class="card-title">고래잇 x 이마트 보물찾기 다국어 사전 수요조사</h2>
+      </div>
+      <div class="card-footer">
+        <span>설문 참여하기</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 카드 3 -->
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe96FTlaGkrRXYBWgg9JhgGmFTrs2_hHQJL13tV2AiJbjBNzQ/viewform" target="_blank" rel="noopener noreferrer" class="card">
+      <div>
+        <span class="card-tag">사전 수요조사</span>
+        <h2 class="card-title">[고래잇 × 이마트] 보물찾기 이벤트 사전 수요조사</h2>
+      </div>
+      <div class="card-footer">
+        <span>설문 참여하기</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 카드 4 -->
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeb8Ho0s9cRGlp5TnI9tiPwKN_XSCXA4cUlbJ-Yu9IFYvpreg/viewform" target="_blank" rel="noopener noreferrer" class="card">
+      <div>
+        <span class="card-tag">만족도 조사</span>
+        <h2 class="card-title">[고래잇 x 이마트] 보물찾기 이벤트 만족도 조사</h2>
+      </div>
+      <div class="card-footer">
+        <span>설문 참여하기</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 카드 5 -->
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScxbb3eofXfCp7mOb7P32C6lvx6tWvfGnntjpA4oIFL3EXE1w/viewform" target="_blank" rel="noopener noreferrer" class="card">
+      <div>
+        <span class="card-tag">사전 수요조사</span>
+        <h2 class="card-title">[고래잇] 주말 장보기 보물찾기 이벤트 사전 수요조사</h2>
+      </div>
+      <div class="card-footer">
+        <span>설문 참여하기</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 카드 6 -->
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfDaQ9e8pocPdhdACR82fbPt__NDaYyFE0fSvJJq_TsAEddWw/viewform" target="_blank" rel="noopener noreferrer" class="card">
+      <div>
+        <span class="card-tag">사전 설문</span>
+        <h2 class="card-title">[사전 설문] 아이와 함께하는 이마트 보물찾기 대작전!!! 야~호</h2>
+      </div>
+      <div class="card-footer">
+        <span>설문 참여하기</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+  </main>
+
+</body>
+</html>
