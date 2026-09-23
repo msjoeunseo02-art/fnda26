@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고래잇 × 이마트 보물찾기 설문조사 센터</title>
+    <!-- Google Fonts import (Noto Sans KR & Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-yellow: #FFB81C;
+            --primary-navy: #112A46;
+            --navy-light: #1A3C63;
+            --bg-light: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-dark: #222222;
+            --text-gray: #666666;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-hover: 0 20px 25px -5px rgba(17, 42, 70, 0.12), 0 10px 10px -5px rgba(17, 42, 70, 0.04);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        /* Header Style */
+        header {
+            background-color: var(--primary-navy);
+            color: #FFFFFF;
+            padding: 1.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 184, 28, 0.4);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-yellow);
+        }
+
+        .logo-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Hero Banner */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--navy-light) 100%);
+            color: white;
+            padding: 4rem 1.5rem 3.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: var(--primary-yellow);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-subtitle {
+            color: var(--primary-yellow);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            color: #CBD5E1;
+            font-weight: 400;
+        }
+
+        /* Card Container Section */
+        .main-container {
+            max-width: 1200px;
+            margin: -2rem auto 4rem;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FFFFFF;
+            padding: 1.25rem 1.75rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background-color: var(--primary-yellow);
+            border-radius: 2px;
+        }
+
+        .total-count {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .total-count span {
+            color: var(--primary-navy);
+            font-weight: 700;
+        }
+
+        /* Grid Layout */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.75rem;
+        }
+
+        /* Card Component */
+        .survey-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 1.75rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .survey-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: transparent;
+            transition: var(--transition-smooth);
+        }
+
+        .survey-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(255, 184, 28, 0.5);
+        }
+
+        .survey-card:hover::before {
+            background-color: var(--primary-yellow);
+        }
+
+        .card-top {
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .tag-pre {
+            background-color: #E0F2FE;
+            color: #0369A1;
+        }
+
+        .tag-post {
+            background-color: #FEF3C7;
+            color: #B45309;
+        }
+
+        .tag-research {
+            background-color: #F3E8FF;
+            color: #6B21A8;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            line-height: 1.45;
+            word-break: keep-all;
+        }
+
+        .card-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1.25rem;
+            border-top: 1px solid #F1F5F9;
+        }
+
+        .cta-text {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-smooth);
+        }
+
+        .survey-card:hover .cta-text {
+            color: #000000;
+            transform: translateX(4px);
+        }
+
+        .icon-arrow {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            transition: var(--transition-smooth);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: var(--text-gray);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border-color);
+            background-color: #FFFFFF;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.65rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-container {
+                margin-top: -1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="header-container">
+            <div class="logo-title">
+                <span class="brand-badge">고래잇 × e-mart</span>
+                <span>설문조사 포털</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-subtitle">GORAET X EMART TREASURE HUNT</div>
+            <h1 class="hero-title">보물찾기 이벤트 설문조사</h1>
+            <p class="hero-desc">고객님의 소중한 의견을 들려주세요. 더 나은 경험과 보물찾기 이벤트를 만들어 나가는 데 도움이 됩니다.</p>
+        </div>
+    </section>
+
+    <!-- Cards Container -->
+    <main class="main-container">
+        <div class="section-header">
+            <div class="section-title">진행 중인 설문목록</div>
+            <div class="total-count">총 <span>6개</span>의 설문</div>
+        </div>
+
+        <div class="cards-grid">
+            
+            <!-- Card 1 -->
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSf9KAD8srZMhxJDkiP037oiS7t_nAU0NWQL1qzy55FypQDHBA/viewform" target="_blank" rel="noopener noreferrer" class="survey-card">
+                <div class="card-top">
+                    <span class="tag tag-post">만족도 및 피드백</span>
+                    <h2 class="card-title">[고래잇 X 이마트 보물찾기] 참여 고객 만족도 및 피드백 설문조사</h2>
+                </div>
+                <div class="card-bottom">
+                    <span class="cta-text">설문 참여하기</span>
+                    <svg class="icon-arrow" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Card 2 -->
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScQCR75vg1XItA9z5Cjn8rR_dAAVuFAJNq6Y-rkOYdYnRZfDg/viewform" target="_blank" rel="noopener noreferrer" class="survey-card">
+                <div class="card-top">
+                    <span class="tag tag-research">다국어 사전조사</span>
+                    <h2 class="card-title">고래잇 x 이마트 보물찾기 다국어 사전 수요조사</h2>
+                </div>
+                <div class="card-bottom">
+                    <span class="cta-text">설문 참여하기</span>
+                    <svg class="icon-arrow" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Card 3 -->
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe96FTlaGkrRXYBWgg9JhgGmFTrs2_hHQJL13tV2AiJbjBNzQ/viewform" target="_blank" rel="noopener noreferrer" class="survey-card">
+                <div class="card-top">
+                    <span class="tag tag-pre">사전 수요조사</span>
+                    <h2 class="card-title">[고래잇 × 이마트] 보물찾기 이벤트 사전 수요조사</h2>
+                </div>
+                <div class="card-bottom">
+                    <span class="cta-text">설문 참여하기</span>
+                    <svg class="icon-arrow" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Card 4 -->
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeb8Ho0s9cRGlp5TnI9tiPwKN_XSCXA4cUlbJ-Yu9IFYvpreg/viewform" target="_blank" rel="noopener noreferrer" class="survey-card">
+                <div class="card-top">
+                    <span class="tag tag-post">만족도 조사</span>
+                    <h2 class="card-title">[고래잇 x 이마트] 보물찾기 이벤트 만족도 조사</h2>
+                </div>
+                <div class="card-bottom">
+                    <span class="cta-text">설문 참여하기</span>
+                    <svg class="icon-arrow" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Card 5 -->
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScxbb3eofXfCp7mOb7P32C6lvx6tWvfGnntjpA4oIFL3EXE1w/viewform" target="_blank" rel="noopener noreferrer" class="survey-card">
+                <div class="card-top">
+                    <span class="tag tag-pre">주말 이벤트</span>
+                    <h2 class="card-title">[고래잇] 주말 장보기 보물찾기 이벤트 사전 수요조사</h2>
+                </div>
+                <div class="card-bottom">
+                    <span class="cta-text">설문 참여하기</span>
+                    <svg class="icon-arrow" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Card 6 -->
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfDaQ9e8pocPdhdACR82fbPt__NDaYyFE0fSvJJq_TsAEddWw/viewform" target="_blank" rel="noopener noreferrer" class="survey-card">
+                <div class="card-top">
+                    <span class="tag tag-pre">키즈 사전설문</span>
+                    <h2 class="card-title">[사전 설문] 아이와 함께하는 이마트 보물찾기 대작전!!! 야~호</h2>
+                </div>
+                <div class="card-bottom">
+                    <span class="cta-text">설문 참여하기</span>
+                    <svg class="icon-arrow" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 GORAET x E-MART Treasure Hunt Campaign. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
